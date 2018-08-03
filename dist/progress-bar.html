@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Plugin Progress Bar</title>
+  <link rel="stylesheet" href="../examples/styles.css" />
+</head>
+
+<body>
+  <small>
+    <a href="/">All Plugins</a> &gt; Progress Bar</small>
+  <h1>Progress Bar</h1>
+  <p>
+    This plugin replaces the Shopify checkout breadcrumb navigation by a bubble progress bar.
+  </p>
+  <div class="plugin-preview">
+
+    <ul class="breadcrumb ">
+      <li class="breadcrumb__item breadcrumb__item--blank">
+        <a class="breadcrumb__link" data-trekkie-id="breadcrumb_cart_link" href="#">Cart</a>
+      </li>
+
+      <li class="breadcrumb__item breadcrumb__item--blank" onclick="handle(1)">
+        <span class="breadcrumb__text">Contact information</span>
+
+      </li>
+      <li class="breadcrumb__item breadcrumb__item--blank" onclick="handle(2)">
+        <span class="breadcrumb__text">Shipping</span>
+
+      </li>
+      <li class="breadcrumb__item breadcrumb__item--blank" onclick="handle(3)">
+        <span class="breadcrumb__text">Payment</span>
+
+      </li>
+      <li class="breadcrumb__item breadcrumb__item--blank" onclick="handle(4)">
+        <span class="breadcrumb__text">Review &amp; Order</span>
+      </li>
+    </ul>
+  </div>
+  <p>
+    Simulate checkout steps by clicking the bubbles.
+  </p>
+
+
+  <script>
+    window.Shopify = {
+      Checkout: {}
+    }
+    /* Fake routing */
+    function handle(step) {
+      if (window.Shopify && window.Shopify.Checkout) {
+        Shopify.Checkout.step = step;
+
+        for (var i = 0; i < document.querySelectorAll('.breadcrumb__item').length; ++i) {
+          document.querySelectorAll('.breadcrumb__item')[i].className = 'breadcrumb__item breadcrumb__item--blank';
+        }
+
+        for (var i = 0; i < step; ++i) {
+          document.querySelectorAll('.breadcrumb__item')[i].classList.add('breadcrumb__item--completed');
+        }
+
+        document.querySelectorAll('.breadcrumb__item')[step].classList.add('breadcrumb__item--current');
+      }
+    }
+
+    /* Fake initial checkout page */
+    window.onload = function () {
+      handle(1);
+    }
+  </script>
+  <script>
+
+    var plugin = document.createElement('script');
+    plugin.src = 'shopify-plugin-loader.min.js';
+
+    document.body.appendChild(plugin);
+
+    plugin.onload = function () {
+      var ctx = window.ShopifyPlugins;
+      ctx.checkout.all.load('progress-bar');
+    }
+  </script>
+</body>
+
+</html>

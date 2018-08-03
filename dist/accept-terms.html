@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Plugin Accept Terms</title>
+  <link rel="stylesheet" href="../examples/styles.css" />
+</head>
+
+<body>
+  <small>
+    <a href="/">All Plugins</a> &gt; Accept Terms</small>
+  <h1>Accept Terms</h1>
+  <p>
+    This plugin adds a
+    <i>Accept Terms checkbox</i> below the Accept Marketing Checkbox in Shopify's contact information checkout page.
+  </p>
+  <div class="plugin-preview">
+    <h2>Contact information</h2>
+    <input type="text" placeholder="E-Mail" />
+    <div data-buyer-accepts-marketing>
+      <div class="fieldset-description">
+        <div class="section__content">
+          <div class="checkbox-wrapper">
+            <div class="checkbox__input">
+              <input type="checkbox" value="1" id="checkout_buyer_accepts_terms" />
+            </div>
+            <label class="checkbox__label">
+              Keep me up to date on news and exclusive offers
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <h2>Shipping address</h2>
+    ...
+    <div align="right">
+      <button align="right" type="submit">Continue to shipping method</button>
+    </div>
+  </div>
+
+  <script>
+    window.Shopify = {
+      Checkout: {
+        step: 'contact_information'
+      }
+    }
+  </script>
+  <script>
+
+    var plugin = document.createElement('script');
+    plugin.src = 'shopify-plugin-loader.min.js';
+
+    document.body.appendChild(plugin);
+
+    plugin.onload = function () {
+      var ctx = window.ShopifyPlugins;
+      ctx.checkout.contactInformation.load('accept-terms', {
+        label: "I have read and I agree to the",
+        termsName: "terms",
+        termsURL: "/pages/terms",
+        errorMessage: "Please agree to our terms before your purchase"
+      });
+    }
+  </script>
+</body>
+
+</html>

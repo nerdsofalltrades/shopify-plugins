@@ -1,0 +1,115 @@
+/* Plugin */
+.breadcrumb svg {
+  display: none;
+}
+
+.breadcrumb {
+  counter-reset: step -1;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+.breadcrumb > li {
+  position: relative;
+  flex-grow: 1;
+  counter-increment: step 1;
+  padding: none;
+  width: 100%;
+  text-align: center;
+  color: silver;
+  overflow-wrap: break-word;
+  word-wrap: normal;
+  white-space: normal;
+  font-size: 2vmin;
+}
+
+.breadcrumb > li.breadcrumb__item--completed {
+  color: #2c3e50;
+}
+
+.breadcrumb > li.breadcrumb__item--current {
+  color: #2c3e50;
+}
+
+.breadcrumb > li:not(:last-child):before {
+  position: absolute;
+  display: flex;
+  background: silver;
+  content: '';
+  height: 4px;
+  width: 100%;
+  transform-origin: left;
+  transform: translateY(20px) translateX(50%);
+}
+
+.breadcrumb > li.breadcrumb__item--completed:before {
+  background: #2c3e50;
+  animation: none;
+}
+
+.breadcrumb > li.breadcrumb__item--completed ~ li.breadcrumb__item--completed:before {
+  background: #2c3e50;
+  animation: shopify-plugin-progress-bar-grow 0.4s ease-in;
+}
+
+@keyframes shopify-plugin-progress-bar-grow {
+  0% {
+    transform: translateY(20px) translateX(50%) scaleX(0.1);
+  }
+  100% {
+    transform: translateY(20px) translateX(50%) scaleX(1);
+  }
+}
+
+.breadcrumb > li > *:before {
+  box-sizing: border-box;
+  content: counter(step);
+  position: relative;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: solid 4px silver;
+  border-radius: 50%;
+  width: 46px;
+  height: 46px;
+  margin: auto;
+  margin-bottom: 8px;
+  text-decoration: none !important;
+  color: silver;
+  font-size: 2vmax;
+  font-weight: bold;
+}
+
+.breadcrumb > li.breadcrumb__item--completed > *:before {
+  content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' fill='%23fff' viewBox='0 0 24 24'%3E%3Cpath d='M20.285 2l-11.285 11.567-5.286-5.011-3.714 3.716 9 8.728 15-15.285z'/%3E%3C/svg%3E");
+  background-color: #2c3e50;
+  border-color: #2c3e50;
+  color: white;
+  line-height: 1.5vmax;
+  font-weight: normal;
+}
+
+.breadcrumb > li.breadcrumb__item--current > *:before {
+  border-color: #2c3e50;
+  color: #2c3e50;
+  animation: shopify-plugin-progress-bar-spring 0.3s ease-out;
+}
+
+@keyframes shopify-plugin-progress-bar-spring {
+  0% {
+    transform: scale(0.5);
+  }
+  60% {
+    transform: scale(1.1);
+  }
+  80% {
+    transform: scale(0.95);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
