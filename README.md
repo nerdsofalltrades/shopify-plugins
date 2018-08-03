@@ -15,7 +15,7 @@ To enable a plugin add this code to your _Google Analytics Additional Scripts_ s
 ```
   (function() {
     var plugin = document.createElement('script');
-    plugin.src = '//cdn.jsdelivr.net/gh/nerdsofalltrades/shopify-plugins/dist/shopify-plugin-loader.min.js';
+    plugin.src = '//cdn.jsdelivr.net/gh/nerdsofalltrades/shopify-plugins@0.1.0/dist/shopify-plugin-loader.min.js';
     document.body.appendChild(plugin);
 
     plugin.onload = function () {
