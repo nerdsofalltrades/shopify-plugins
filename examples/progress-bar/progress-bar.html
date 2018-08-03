@@ -69,16 +69,16 @@
     }
   </script>
   <script>
-
-    var plugin = document.createElement('script');
-    plugin.src = 'shopify-plugin-loader.min.js';
-
-    document.body.appendChild(plugin);
-
-    plugin.onload = function () {
-      var ctx = window.ShopifyPlugins;
-      ctx.checkout.all.load('progress-bar');
-    }
+    fetch('shopify-plugin-loader.min.js').then(
+      function (result) {
+        result.text().then(function (script) {
+          var plugin = document.createElement('script');
+          plugin.innerHTML = script;
+          document.body.appendChild(plugin);
+          window.ShopifyPlugins.checkout.all.load('progress-bar');
+        })
+      }
+    );
   </script>
 </body>
 

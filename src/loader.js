@@ -1,12 +1,18 @@
 class Loader {
   static load(plugin, options) {
-    const script = document.createElement('script');
-    script.src = `shopify-plugin-${plugin}.min.js`;
-    script.onload = function() {
-      window.ShopifyPlugins.plugins[plugin](options);
-    };
+    const origin =
+      process.env.NODE_ENV === 'production'
+        ? `//cdn.jsdelivr.net/gh/nerdsofalltrades/shopify-plugins@${process.env.VERSION}/dist/`
+        : '';
     process.env.NODE_ENV === 'development' && console.log(`Lazy-Loading ${plugin} plugin...`);
-    document.body.appendChild(script);
+    fetch(`${origin}shopify-plugin-${plugin}.min.js`).then(result => {
+      result.text().then(script => {
+        const code = document.createElement('script');
+        code.innerHTML = script;
+        document.body.appendChild(code);
+        window.ShopifyPlugins.plugins[plugin](options);
+      });
+    });
   }
 }
 

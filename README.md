@@ -12,28 +12,29 @@ The _accept-terms_ plugin is only loaded for the checkout contact information st
 
 To enable a plugin add this code to your _Google Analytics Additional Scripts_ section in Shopify's Admin / Online Store / Preferences.
 
-```
-  (function() {
+```javascript
+fetch('//cdn.jsdelivr.net/gh/nerdsofalltrades/shopify-plugins@0.1.1/dist/shopify-plugin-loader.min.js').then(function(
+  result
+) {
+  result.text().then(function(script) {
     var plugin = document.createElement('script');
-    plugin.src = '//cdn.jsdelivr.net/gh/nerdsofalltrades/shopify-plugins@0.1.0/dist/shopify-plugin-loader.min.js';
+    plugin.innerHTML = script;
     document.body.appendChild(plugin);
 
-    plugin.onload = function () {
-      var ctx = window.ShopifyPlugins;
+    // Load plugins here
+    var ctx = window.ShopifyPlugins;
 
-      // Load plugins here
+    // Load the accept-terms plugin only in checkout
+    // contact information step
+    ctx.checkout.contactInformation.load('accept-terms');
 
-      // Load the accept-terms plugin only in checkout
-      // contact information step
-      ctx.checkout.contactInformation.load('accept-terms');
+    // Load the progress-bar plugin for all steps
+    // in checkout
+    ctx.checkout.all.load('progress-bar');
 
-      // Load the progress-bar plugin for all steps
-      // in checkout
-      ctx.checkout.all.load('progress-bar');
-
-      // Load other plugins here...
-    }
-  })();
+    // Load other plugins...
+  });
+});
 ```
 
 ## Plugins
@@ -45,9 +46,9 @@ Checkbox in Shopify's contact information checkout step.
 
 ![Accept terms plugin in action](examples/accept-terms/accept-terms.png)
 
-Add this code to your `plugin.onload` function to enable it.
+Add this code to enable it.
 
-```
+```javascript
 ctx.checkout.contactInformation.load('accept-terms');
 ```
 
@@ -55,16 +56,16 @@ Without options standard english texts are displayed and the url of your terms
 is expected to be found at `/pages/terms`. To change that just pass options
 and set it up as you like.
 
-```
+```javascript
 ctx.checkout.contactInformation.load('accept-terms', {
   // The checkbox label
-  label: "I have read and I agree to the",
+  label: 'I have read and I agree to the',
   // The label of the terms link
-  termsName: "terms",
+  termsName: 'terms',
   // The url to your terms
-  termsURL: "/pages/terms",
+  termsURL: '/pages/terms',
   // Message displayed when customer tries to go on without agreeing
-  errorMessage: "Please agree to our terms before your purchase"
+  errorMessage: 'Please agree to our terms before your purchase'
 });
 ```
 
@@ -77,15 +78,15 @@ configuration is needed.
 
 ![Progress bar plugin in action](examples/progress-bar/progress-bar.png)
 
-Add this code to your `plugin.onload` function to enable it.
+Add this code to enable it.
 
-```
+```javascript
 ctx.checkout.all.load('progress-bar');
 ```
 
 ## Development
 
-```
+```shell
 $ npm install
 $ npm run dev
 ```

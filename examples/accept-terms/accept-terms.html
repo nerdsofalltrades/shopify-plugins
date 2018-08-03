@@ -47,20 +47,21 @@
   </script>
   <script>
 
-    var plugin = document.createElement('script');
-    plugin.src = 'shopify-plugin-loader.min.js';
-
-    document.body.appendChild(plugin);
-
-    plugin.onload = function () {
-      var ctx = window.ShopifyPlugins;
-      ctx.checkout.contactInformation.load('accept-terms', {
-        label: "I have read and I agree to the",
-        termsName: "terms",
-        termsURL: "/pages/terms",
-        errorMessage: "Please agree to our terms before your purchase"
-      });
-    }
+    fetch('shopify-plugin-loader.min.js').then(
+      function (result) {
+        result.text().then(function (script) {
+          var plugin = document.createElement('script');
+          plugin.innerHTML = script;
+          document.body.appendChild(plugin);
+          window.ShopifyPlugins.checkout.contactInformation.load('accept-terms', {
+            label: "I have read and I agree to the",
+            termsName: "terms",
+            termsURL: "/pages/terms",
+            errorMessage: "Please agree to our terms before your purchase"
+          });
+        })
+      }
+    );
   </script>
 </body>
 
