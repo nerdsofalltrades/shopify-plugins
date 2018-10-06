@@ -1,6 +1,6 @@
 {
   "name": "shopify-plugins",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Add features to your Shopify storefront and checkout with lightweight and easily integrateable plugins.",
   "main": "src/loader.js",
   "scripts": {

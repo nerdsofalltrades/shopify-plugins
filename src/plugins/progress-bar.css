@@ -9,6 +9,7 @@
   margin: 0;
   padding: 0;
   display: flex;
+  flex-flow: row nowrap;
   justify-content: space-between;
 }
 
@@ -24,6 +25,7 @@
   word-wrap: normal;
   white-space: normal;
   font-size: 2vmin;
+  display: block !important;
 }
 
 .breadcrumb > li.breadcrumb__item--completed {
