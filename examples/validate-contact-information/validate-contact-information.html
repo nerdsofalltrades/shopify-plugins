@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Plugin Validate Contact Information</title>
+    <link rel="stylesheet" href="../examples/styles.css" />
+  </head>
+
+  <body>
+    <small> <a href="/">All Plugins</a> &gt; Accept Terms</small>
+    <h1>Validate Contact Information</h1>
+    <p>
+      This plugin adds a <i>Validate Contact Information</i> validator to to Shopify's contact information checkout
+      page.
+    </p>
+    <div class="plugin-preview">
+      <h2>Contact information</h2>
+      ...
+      <h2>Shipping address</h2>
+      <div data-buyer-accepts-marketing>
+        <div class="fieldset-description">
+          <div class="section__content">
+            <input type="text" placeholder="Street" id="checkout_shipping_address_address1" />
+          </div>
+        </div>
+      </div>
+      ...
+      <div align="right"><button align="right" type="submit">Continue to shipping method</button></div>
+    </div>
+
+    <script>
+      window.Shopify = {
+        Checkout: {
+          step: 'contact_information'
+        }
+      };
+    </script>
+    <script>
+      fetch('shopify-plugin-loader.min.js').then(function(result) {
+        result.text().then(function(script) {
+          const plugin = document.createElement('script');
+          plugin.innerHTML = script;
+          document.body.appendChild(plugin);
+          window.ShopifyPlugins.checkout.contactInformation.load('validate-contact-information', [
+            {
+              selector: '#checkout_shipping_address_address1',
+              pattern: /.*[a-z]+.*[0-9]+.*/i,
+              errorMessage: 'Please enter streetname AND number'
+            }
+          ]);
+        });
+      });
+    </script>
+  </body>
+</html>

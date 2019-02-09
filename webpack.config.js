@@ -4,7 +4,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const name = require('./package.json').name;
 const version = require('./package.json').version;
 const mode = process.env.NODE_ENV || 'production';
-const plugins = ['accept-terms', 'progress-bar'];
+const plugins = ['accept-terms', 'validate-contact-information', 'progress-bar'];
 const config = {
   mode,
   target: 'web',

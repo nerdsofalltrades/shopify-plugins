@@ -13,7 +13,7 @@ The _accept-terms_ plugin is only loaded for the checkout contact information st
 To enable a plugin add this code to your _Google Analytics Additional Scripts_ section in Shopify's Admin / Online Store / Preferences.
 
 ```javascript
-fetch('//cdn.jsdelivr.net/gh/nerdsofalltrades/shopify-plugins@0.1.2/dist/shopify-plugin-loader.min.js').then(function(
+fetch('//cdn.jsdelivr.net/gh/nerdsofalltrades/shopify-plugins@0.1.3/dist/shopify-plugin-loader.min.js').then(function(
   result
 ) {
   result.text().then(function(script) {
@@ -27,6 +27,10 @@ fetch('//cdn.jsdelivr.net/gh/nerdsofalltrades/shopify-plugins@0.1.2/dist/shopify
     // Load the accept-terms plugin only in checkout
     // contact information step
     ctx.checkout.contactInformation.load('accept-terms');
+
+    // Load the validate-contact-information plugin only in checkout
+    // contact information step
+    ctx.checkout.contactInformation.load('validate-contact-information');
 
     // Load the progress-bar plugin for all steps
     // in checkout
@@ -67,6 +71,22 @@ ctx.checkout.contactInformation.load('accept-terms', {
   // Message displayed when customer tries to go on without agreeing
   errorMessage: 'Please agree to our terms before your purchase'
 });
+```
+
+### Validate contact information plugin
+
+This plugin adds custom RegEx validators to Shopify's contact information checkout step.
+
+Add this code to enable it.
+
+```javascript
+ctx.checkout.contactInformation.load('validate-contact-information', [
+  {
+    selector: '#checkout_shipping_address_address1',
+    pattern: /.*[a-z]+.*[0-9]+.*/i,
+    errorMessage: 'Please enter streetname AND number'
+  }
+]);
 ```
 
 ### Progress bar plugin
