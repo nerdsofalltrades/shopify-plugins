@@ -25,14 +25,14 @@ Plugin.register(
         '</div>' +
         '<style>' +
         `${validation.selector}.plugin-validate-contact-information--error {` +
-        '  border: solid 2px #e32c2b;' +
+        '  border: solid 2px #ff6d6d;' +
         '}' +
         `.${validation.id} {` +
         '  display: none;' +
         '}' +
         `.plugin-validate-contact-information--error + .${validation.id} {` +
         '  display: block;' +
-        '  color: #e32c2b;' +
+        '  color: #ff6d6d;' +
         '}' +
         '</style>';
       return node;
@@ -41,7 +41,7 @@ Plugin.register(
     options.forEach(validation => {
       const field = document.querySelector(validation.selector);
       if (field) {
-        const submitButton = document.querySelector('button[type=submit]');
+        const submitButton = document.querySelector('button[type=submit].step__footer__continue-btn');
         const id = '_' + btoa(validation.selector).replace(/[^a-zA-Z0-9]/gi, 'X');
         field.parentNode.appendChild(getPlugin({ id, ...validation }));
 

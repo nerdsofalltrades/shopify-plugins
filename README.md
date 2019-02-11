@@ -13,7 +13,7 @@ The _accept-terms_ plugin is only loaded for the checkout contact information st
 To enable a plugin add this code to your _Google Analytics Additional Scripts_ section in Shopify's Admin / Online Store / Preferences.
 
 ```javascript
-fetch('//cdn.jsdelivr.net/gh/nerdsofalltrades/shopify-plugins@0.1.5/dist/shopify-plugin-loader.min.js').then(function(
+fetch('//cdn.jsdelivr.net/gh/nerdsofalltrades/shopify-plugins@0.1.6/dist/shopify-plugin-loader.min.js').then(function(
   result
 ) {
   result.text().then(function(script) {
